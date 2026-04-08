@@ -38,9 +38,11 @@ const CompanionsList = ({ title, companions, classNames }: CompanionsListProps) 
                                         <div className="size-[72px] flex items-center justify-center rounded-lg max-md:hidden" style={{ backgroundColor: getSubjectColor(subject) }}>
                                             <Image
                                                 src={`/icons/${subject}.svg`}
-                                                alt={subject}
+                                                alt={`${subject} icon`}
                                                 width={35}
-                                                height={35} />
+                                                height={35}
+                                                style={{ width: 'auto', height: 'auto' }}
+                                            />
                                         </div>
                                         <div className="flex flex-col gap-2">
                                             <p className="font-bold text-2xl">
@@ -60,9 +62,10 @@ const CompanionsList = ({ title, companions, classNames }: CompanionsListProps) 
                                 <div className="flex items-center justify-center rounded-lg w-fit p-2 md:hidden" style={{backgroundColor: getSubjectColor(subject)}}>
                                     <Image
                                         src={`/icons/${subject}.svg`}
-                                        alt={subject}
+                                        alt={`${subject} icon`}
                                         width={18}
                                         height={18}
+                                        style={{ width: 'auto', height: 'auto' }}
                                     />
                                 </div>
                             </TableCell>
@@ -72,7 +75,14 @@ const CompanionsList = ({ title, companions, classNames }: CompanionsListProps) 
                                         {duration} {' '}
                                         <span className="max-md:hidden">mins</span>
                                     </p>
-                                    <Image src="/icons/clock.svg" alt="minutes" width={14} height={14} className="md:hidden" />
+                                    <Image
+                                        src="/icons/clock.svg"
+                                        alt="Duration icon"
+                                        width={14}
+                                        height={14}
+                                        className="md:hidden"
+                                        style={{ width: 'auto', height: 'auto' }}
+                                    />
                                 </div>
                             </TableCell>
                         </TableRow>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { removeBookmark } from "@/lib/actions/companion.actions";
 import { addBookmark } from "@/lib/actions/companion.actions";
 import Image from "next/image";
@@ -41,9 +41,10 @@ const CompanionCard = ({
             src={
               bookmarked ? "/icons/bookmark-filled.svg" : "/icons/bookmark.svg"
             }
-            alt="bookmark"
+            alt={bookmarked ? "Remove bookmark" : "Add bookmark"}
             width={12.5}
             height={15}
+            style={{ width: 'auto', height: 'auto' }}
           />
         </button>
       </div>
@@ -53,9 +54,10 @@ const CompanionCard = ({
       <div className="flex items-center gap-2">
         <Image
           src="/icons/clock.svg"
-          alt="duration"
+          alt="Lesson duration"
           width={13.5}
           height={13.5}
+          style={{ width: 'auto', height: 'auto' }}
         />
         <p className="text-sm">{duration} minutes</p>
       </div>

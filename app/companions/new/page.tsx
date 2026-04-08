@@ -1,9 +1,11 @@
-import CompanionForm from "@/components/CompanionForm";
+﻿import CompanionForm from "@/components/CompanionForm";
 import {auth} from "@clerk/nextjs/server";
 import {redirect} from "next/navigation";
 import {newCompanionPermissions} from "@/lib/actions/companion.actions";
 import Image from "next/image";
 import Link from "next/link";
+
+export const dynamic = 'force-dynamic';
 
 const NewCompanion = async () => {
     const { userId } = await auth();
@@ -21,12 +23,18 @@ const NewCompanion = async () => {
                 </article>
                 ) : (
                     <article className="companion-limit">
-                        <Image src="/images/limit.svg" alt="Companion limit reached" width={360} height={230} />
+                        <Image
+                            src="/images/limit.svg"
+                            alt="Companion limit reached"
+                            width={360}
+                            height={230}
+                            style={{ width: 'auto', height: 'auto' }}
+                        />
                         <div className="cta-badge">
                             Upgrade your plan
                         </div>
-                        <h1>You’ve Reached Your Limit</h1>
-                        <p>You’ve reached your companion limit. Upgrade to create more companions and premium features.</p>
+                        <h1>You&apos;ve Reached Your Limit</h1>
+                        <p>You&apos;ve reached your companion limit. Upgrade to create more companions and premium features.</p>
                         <Link href="/subscription" className="btn-primary w-full justify-center" >
                             Upgrade My Plan
                         </Link>

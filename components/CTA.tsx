@@ -1,4 +1,4 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import Link from "next/link";
 
 const Cta = () => {
@@ -8,10 +8,22 @@ const Cta = () => {
             <h2 className="text-3xl font-bold">
                 Build and Personalize Learning Companion
             </h2>
-            <p>Pick a name, subject, voice, & personality — and start learning through voice conversations that feel natural and fun.</p>
-            <Image src="images/cta.svg" alt="cta" width={362} height={232} />
+            <p>Pick a name, subject, voice, & personality and start learning through voice conversations that feel natural and fun.</p>
+            <Image
+                src="/images/cta.svg"
+                alt="Illustration of a personalized learning companion"
+                width={362}
+                height={232}
+                style={{ width: 'auto', height: 'auto' }}
+            />
             <button className="btn-primary">
-                <Image src="/icons/plus.svg" alt="plus" width={12} height={12}/>
+                <Image
+                    src="/icons/plus.svg"
+                    alt="Add companion"
+                    width={12}
+                    height={12}
+                    style={{ width: 'auto', height: 'auto' }}
+                />
                 <Link href="/companions/new">
                     <p>Build a New Companion</p>
                 </Link>

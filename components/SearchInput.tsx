@@ -38,7 +38,13 @@ const SearchInput = () => {
 
     return (
         <div className="relative border border-black rounded-lg items-center flex gap-2 px-2 py-1 h-fit">
-            <Image src="/icons/search.svg" alt="search" width={15} height={15} />
+            <Image
+                src="/icons/search.svg"
+                alt="Search"
+                width={15}
+                height={15}
+                style={{ width: 'auto', height: 'auto' }}
+            />
             <input
                 placeholder="Search companions..."
                 className="outline-none"

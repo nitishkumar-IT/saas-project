@@ -1,4 +1,4 @@
-import {
+﻿import {
   Accordion,
   AccordionContent,
   AccordionItem,
@@ -13,6 +13,8 @@ import {
 } from "@/lib/actions/companion.actions";
 import Image from "next/image";
 import CompanionsList from "@/components/CompanionsList";
+
+export const dynamic = 'force-dynamic';
 
 const Profile = async () => {
   const user = await currentUser();
@@ -29,7 +31,7 @@ const Profile = async () => {
         <div className="flex gap-4 items-center">
           <Image
             src={user.imageUrl}
-            alt={user.firstName!}
+            alt={`${user.firstName || 'User'} profile photo`}
             width={110}
             height={110}
           />
@@ -47,9 +49,10 @@ const Profile = async () => {
             <div className="flex gap-2 items-center">
               <Image
                 src="/icons/check.svg"
-                alt="checkmark"
+                alt="Completed lessons"
                 width={22}
                 height={22}
+                style={{ width: 'auto', height: 'auto' }}
               />
               <p className="text-2xl font-bold">{sessionHistory.length}</p>
             </div>
@@ -57,7 +60,13 @@ const Profile = async () => {
           </div>
           <div className="border border-black rouded-lg p-3 gap-2 flex flex-col h-fit">
             <div className="flex gap-2 items-center">
-              <Image src="/icons/cap.svg" alt="cap" width={22} height={22} />
+              <Image
+                src="/icons/cap.svg"
+                alt="Companions created"
+                width={22}
+                height={22}
+                style={{ width: 'auto', height: 'auto' }}
+              />
               <p className="text-2xl font-bold">{companions.length}</p>
             </div>
             <div>Companions created</div>
