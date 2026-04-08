@@ -1,4 +1,4 @@
-import {getCompanion} from "@/lib/actions/companion.actions";
+﻿import {getCompanion} from "@/lib/actions/companion.actions";
 import {currentUser} from "@clerk/nextjs/server";
 import {redirect} from "next/navigation";
 import {getSubjectColor} from "@/lib/utils";
@@ -14,7 +14,7 @@ const CompanionSession = async ({ params }: CompanionSessionPageProps) => {
     const companion = await getCompanion(id);
     const user = await currentUser();
 
-    const { name, subject, title, topic, duration } = companion;
+    const { name, subject, topic, duration } = companion;
 
     if(!user) redirect('/sign-in');
     if(!name) redirect('/companions')

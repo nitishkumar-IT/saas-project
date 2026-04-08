@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import {useEffect, useRef, useState} from 'react'
 import {cn, configureAssistant, getSubjectColor} from "@/lib/utils";
@@ -68,7 +68,7 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
             vapi.off('speech-start', onSpeechStart);
             vapi.off('speech-end', onSpeechEnd);
         }
-    }, []);
+    }, [companionId]);
 
     const toggleMicrophone = () => {
         const isMuted = vapi.isMuted();
@@ -85,7 +85,7 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
             serverMessages: [],
         }
 
-        // @ts-expect-error
+        // @ts-expect-error Vapi accepts this override shape at runtime, but the package types do not expose it.
         vapi.start(configureAssistant(voice, style), assistantOverrides)
     }
 
@@ -153,7 +153,7 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
                                     {
                                         name
                                             .split(' ')[0]
-                                            .replace('/[.,]/g, ','')
+                                            .replace(/[.,]/g, '')
                                     }: {message.content}
                                 </p>
                             )
@@ -172,3 +172,4 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
 }
 
 export default CompanionComponent
+

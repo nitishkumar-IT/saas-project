@@ -1,8 +1,19 @@
-'use server';
+﻿'use server';
 
 import {auth} from "@clerk/nextjs/server";
 import {createSupabaseClient} from "@/lib/supabase";
 import { revalidatePath } from "next/cache";
+
+const dedupeCompanions = (companions: (Companion | null | undefined)[]) => {
+    const seen = new Set<string>();
+
+    return companions.filter((companion): companion is Companion => {
+        if (!companion?.id || seen.has(companion.id)) return false;
+
+        seen.add(companion.id);
+        return true;
+    });
+}
 
 export const createCompanion = async (formData: CreateCompanion) => {
     const { userId: author } = await auth();
@@ -78,7 +89,7 @@ export const getRecentSessions = async (limit = 10) => {
 
     if(error) throw new Error(error.message);
 
-    return data.map(({ companions }) => companions);
+    return dedupeCompanions(data.map(({ companions }) => companions));
 }
 
 export const getUserSessions = async (userId: string, limit = 10) => {
@@ -92,7 +103,7 @@ export const getUserSessions = async (userId: string, limit = 10) => {
 
     if(error) throw new Error(error.message);
 
-    return data.map(({ companions }) => companions);
+    return dedupeCompanions(data.map(({ companions }) => companions));
 }
 
 export const getUserCompanions = async (userId: string) => {
@@ -137,7 +148,6 @@ export const newCompanionPermissions = async () => {
     }
 }
 
-// Bookmarks
 export const addBookmark = async (companionId: string, path: string) => {
   const { userId } = await auth();
   if (!userId) return;
@@ -149,7 +159,6 @@ export const addBookmark = async (companionId: string, path: string) => {
   if (error) {
     throw new Error(error.message);
   }
-  // Revalidate the path to force a re-render of the page
 
   revalidatePath(path);
   return data;
@@ -171,16 +180,14 @@ export const removeBookmark = async (companionId: string, path: string) => {
   return data;
 };
 
-// It's almost the same as getUserCompanions, but it's for the bookmarked companions
 export const getBookmarkedCompanions = async (userId: string) => {
   const supabase = createSupabaseClient();
   const { data, error } = await supabase
     .from("bookmarks")
-    .select(`companions:companion_id (*)`) // Notice the (*) to get all the companion data
+    .select(`companions:companion_id (*)`)
     .eq("user_id", userId);
   if (error) {
     throw new Error(error.message);
   }
-  // We don't need the bookmarks data, so we return only the companions
-  return data.map(({ companions }) => companions);
+  return dedupeCompanions(data.map(({ companions }) => companions));
 };

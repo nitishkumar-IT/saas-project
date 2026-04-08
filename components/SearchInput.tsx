@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import {useEffect, useState} from "react";
@@ -9,12 +9,10 @@ const SearchInput = () => {
     const pathname = usePathname();
     const router = useRouter();
     const searchParams = useSearchParams();
-    const query = searchParams.get('topic') || '';
-
-    const [searchQuery, setSearchQuery] = useState('');
+    const [searchQuery, setSearchQuery] = useState(searchParams.get('topic') || '');
 
     useEffect(() => {
-        const delayDebounceFn = setTimeout(() => {
+        const timeoutId = setTimeout(() => {
             if(searchQuery) {
                 const newUrl = formUrlQuery({
                     params: searchParams.toString(),
@@ -33,7 +31,9 @@ const SearchInput = () => {
                     router.push(newUrl, { scroll: false });
                 }
             }
-        }, 500)
+        }, 500);
+
+        return () => clearTimeout(timeoutId);
     }, [searchQuery, router, searchParams, pathname]);
 
     return (

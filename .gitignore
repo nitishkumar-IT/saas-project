@@ -45,3 +45,13 @@ next-env.d.ts
 
 # Sentry Config File
 .env.sentry-build-plugin
+# allow env example file
+!.env.example
+
+# IDE files
+.vscode/
+.idea/
+
+# local logs
+logs/
+*.log
